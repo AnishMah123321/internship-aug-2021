@@ -1,0 +1,19 @@
+1>				find number of occurence of a value in an array
+
+2>				write a function which takes and array and numberofextractin  (say n ) in argument. the function should extract last n items in the array 
+
+				function myFunction(inputArray, numberofExtractions) {
+					return // should return last numberofExtractions items of the array
+					
+				}
+
+3>				write a flatten function with following behaviour
+
+
+				let mixedArray = [100, 5, 'a', [3, 1, 5], 7, 9, [3, ['a', 'b']]]
+
+				function flatten(mixedArray) {
+					return flattened version
+				}
+
+				output should be [100, 5, 'a', 3, 1, 5, 7, 9, 3, 'a', 'b']
