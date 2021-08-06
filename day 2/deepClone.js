@@ -8,17 +8,20 @@ const item = {
 
 }
 //console.log(Object.keys(item)[1]);
-var result={};
+//var result={};
 
-result = Object.assign(item, result);
-console.log(Object.keys(result));
+//result = Object.assign(item, result);
+//console.log(Object.keys(result));
 
 
-var count1='';
-var count2='';
-for(let i in item ){
-   result.i=item.i;
+//var count1='';
+//var count2='';
+//for(let i in item ){
+//   result.i=item.i;
     //console.log(i);
-}
-console.log(item);
+//}
+//console.log(item);
+//console.log(result);
+
+const result={...item};
 console.log(result);
