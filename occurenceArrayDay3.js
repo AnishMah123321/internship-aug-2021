@@ -11,6 +11,7 @@ for (i in array){
     for (j in array){
         if (j!=i){
         if (array[j] == array [i]){
+            // USE SET
         for(l in occurence){
             check=0;
             for (k in occurence){
