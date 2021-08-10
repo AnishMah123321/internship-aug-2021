@@ -29,11 +29,12 @@ const obj = {
 let count=0;
 let SW8= {[Symbol.iterator]: function (ob){
     if (ob[count] != undefined){
-        return (value = ob[count] , done = false);
+        return {value = ob[count] , done = false
+        };
         count=count+1;
     }
     else {
-        return (done = true);
+        return {done = true};
     }
 }
 }
