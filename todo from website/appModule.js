@@ -7,7 +7,7 @@ document.getElementById('clearAll').addEventListener('click', handleClearAll);
 
 
 // Event Handlers
-function handleSubmitForm(event) {
+export function handleSubmitForm(event) {
     event.preventDefault();
     let input = document.querySelector('input');
     if (input.value != '')
@@ -15,14 +15,14 @@ function handleSubmitForm(event) {
     input.value = '';
 }
 
-function handleClickDeleteOrCheck(event) {
+export function handleClickDeleteOrCheck(event) {
     if (event.target.name == 'checkButton')
         checkTodo(event);
 
     if (event.target.name == 'deleteButton')
         deleteTodo(event);
 }
-function handleClearAll(event) {
+export function handleClearAll(event) {
     document.querySelector('ul').innerHTML = '';
 }
 
@@ -31,7 +31,7 @@ function handleClearAll(event) {
 
 
 // Helpers
-function addTodo(todo) {
+export function addTodo(todo) {
     let ul = document.querySelector('ul');
     let li = document.createElement('li');
     li.innerHTML = `
@@ -43,7 +43,7 @@ function addTodo(todo) {
     ul.appendChild(li);
 }
 
-function checkTodo(event) {
+export function checkTodo(event) {
     let item = e.target.parentNode;
     if (item.style.textDecoration == 'line-through')
         item.style.textDecoration = 'none';
@@ -51,7 +51,7 @@ function checkTodo(event) {
         item.style.textDecoration = 'line-through';
 }
 
-function deleteTodo(event) {
+export function deleteTodo(event) {
     let item = event.target.parentNode;
     
     item.addEventListener('transitionend', function () {
