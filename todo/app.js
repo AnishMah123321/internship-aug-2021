@@ -7,22 +7,22 @@ document.getElementById('clearAll').addEventListener('click', handleClearAll);
 
 
 // Event Handlers
-function handleSubmitForm(e) {
-    e.preventDefault();
+function handleSubmitForm(event) {
+    event.preventDefault();
     let input = document.querySelector('input');
     if (input.value != '')
         addTodo(input.value);
     input.value = '';
 }
 
-function handleClickDeleteOrCheck(e) {
-    if (e.target.name == 'checkButton')
-        checkTodo(e);
+function handleClickDeleteOrCheck(event) {
+    if (event.target.name == 'checkButton')
+        checkTodo(event);
 
-    if (e.target.name == 'deleteButton')
-        deleteTodo(e);
+    if (event.target.name == 'deleteButton')
+        deleteTodo(event);
 }
-function handleClearAll(e) {
+function handleClearAll(event) {
     document.querySelector('ul').innerHTML = '';
 }
 
@@ -43,7 +43,7 @@ function addTodo(todo) {
     ul.appendChild(li);
 }
 
-function checkTodo(e) {
+function checkTodo(event) {
     let item = e.target.parentNode;
     if (item.style.textDecoration == 'line-through')
         item.style.textDecoration = 'none';
@@ -51,8 +51,8 @@ function checkTodo(e) {
         item.style.textDecoration = 'line-through';
 }
 
-function deleteTodo(e) {
-    let item = e.target.parentNode;
+function deleteTodo(event) {
+    let item = event.target.parentNode;
     
     item.addEventListener('transitionend', function () {
         item.remove(); 
@@ -65,15 +65,3 @@ function deleteTodo(e) {
 
 
 
-// Helpers
-function addTodo(todo) {
-    let ul = document.querySelector('ul');
-    let li = document.createElement('li');
-    li.innerHTML = `
-        <span class="todo-item">${todo}</span>
-        <button name="checkButton"><i class="fas fa-check-square"></i></button>
-        <button name="deleteButton" ><i class="fas fa-trash"></i></button>
-    `;
-    li.classList.add('todo-list-item');
-    ul.appendChild(li);
-}

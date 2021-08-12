@@ -26,17 +26,23 @@ const obj = {
 // for (let k of objIterator){
 //     console.log(objIterator.next());
 // }
-let count=0;
+let count=-1;
 let SW8= {[Symbol.iterator]: function (ob){
-    if (ob[count] != undefined){
-        return {value = ob[count] , done = false
-        };
+    return{ next: () => {
         count=count+1;
+        if (ob.title != undefined){
+           
+        return {value = ob.title , done = false
+        };
+        
     }
     else {
         return {done = true};
     }
 }
+}
+}
+
 }
 
 let checker = SW8[Symbol.iterator](obj);
