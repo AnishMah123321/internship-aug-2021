@@ -1,1 +1,1 @@
-import'/app.js'
+import'/appModule.js'
