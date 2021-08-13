@@ -56,6 +56,7 @@ export function deleteTodo(event) {
     
     item.addEventListener('transitionend', function () {
         item.remove(); 
+        
     });
 
     item.classList.add('todo-list-item-fall');
