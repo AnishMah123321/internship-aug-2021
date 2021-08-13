@@ -98,7 +98,7 @@ function doneTodo(event){
 function deleteTodo(event){
    
     
-
+   
     item.classList.add('todo-list-item-fall');
 
 }
