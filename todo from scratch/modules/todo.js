@@ -1,4 +1,4 @@
-import { addItem, getItems, removeItemByName } from './store.js'
+import { addItem, getItems, removeItemById, removeAll ,doneItemById, unDoneItemById} from './store.js'
 
 export const addTodoItem = (datePick,todoItem) => {
     console.log('Added Todo Item', datePick , todoItem);
@@ -9,7 +9,7 @@ export const addTodoItem = (datePick,todoItem) => {
     const todoItems = getItems();
 
     for(let item of todoItems) {
-        if(item.todoItems.toLowerCase() === todoItem.toLowerCase()) {
+        if(item.todoItem.toLowerCase() === todoItem.toLowerCase()) {
             throw new Error('Item already exists')
         }
     }
@@ -29,7 +29,22 @@ export const getTodoItems = () => {
     return getItems();
 }
 
-export const removeTodoItem = (name) => {
-    console.log('Removed Todo Item', name);
-    removeItemByName(name);
+export const removeTodoItem = (todoItem) => {
+    //console.log('Removed Todo Item', todoItem);
+    removeItemById(todoItem);
 }
+
+export const doneTodoItem = (todoItem) => {
+    //console.log('Done Todo Item', todoItem);
+    doneItemById(todoItem);
+}
+
+export const unDoneTodoItem = (todoItem) => {
+    //console.log('Done Todo Item', todoItem);
+    unDoneItemById(todoItem);
+}
+
+export const removeAllItems = () => {
+    removeAll();
+}   
+

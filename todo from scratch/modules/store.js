@@ -5,7 +5,9 @@ export const addItem = (item) => {
     } else {
         todoItems = [];
     }
+    
     todoItems.push(item);
+    
 
     window.localStorage.setItem('todos', JSON.stringify(todoItems));
 }
@@ -19,7 +21,8 @@ export const getItems = () => {
     return todoItems;
 }
 
-export const removeItemByName = (name) => {
+
+export const removeItemById = (name) => {
     let todoItems = window.localStorage.getItem('todos');
 
     if(todoItems) {
@@ -29,7 +32,7 @@ export const removeItemByName = (name) => {
     }
     
     let todoItemsByNameIndex = todoItems.findIndex((item) => {
-        return item.name.toLowerCase() == name.toLowerCase();
+        return item.todoItem.toLowerCase() == name.toLowerCase();
     })
     console.log('Item index', todoItemsByNameIndex);
     if(todoItemsByNameIndex > -1) {
@@ -37,4 +40,47 @@ export const removeItemByName = (name) => {
     }
 
     window.localStorage.setItem('todos', JSON.stringify(todoItems));
+}
+
+export const doneItemById = (name) => {
+    let todoItems = window.localStorage.getItem('todos');
+    if(todoItems) {
+        todoItems = JSON.parse(todoItems);
+    } else {
+        todoItems = [];
+    }
+    let todoItemsByNameIndex = todoItems.findIndex((item) => {
+        return item.todoItem.toLowerCase() == name.toLowerCase();
+    })
+    console.log('Item index', todoItemsByNameIndex);
+    if(todoItemsByNameIndex > -1) {
+     todoItems[todoItemsByNameIndex].isComplete=true;
+    }
+    window.localStorage.setItem('todos', JSON.stringify(todoItems));
+
+
+}
+
+export const unDoneItemById = (name) => {
+    let todoItems = window.localStorage.getItem('todos');
+    if(todoItems) {
+        todoItems = JSON.parse(todoItems);
+    } else {
+        todoItems = [];
+    }
+    let todoItemsByNameIndex = todoItems.findIndex((item) => {
+        return item.todoItem.toLowerCase() == name.toLowerCase();
+    })
+    console.log('Item index', todoItemsByNameIndex);
+    if(todoItemsByNameIndex > -1) {
+     todoItems[todoItemsByNameIndex].isComplete=false;
+    }
+    window.localStorage.setItem('todos', JSON.stringify(todoItems));
+
+
+}
+
+
+export const removeAll = () => {
+   localStorage.removeItem('todos');
 }
