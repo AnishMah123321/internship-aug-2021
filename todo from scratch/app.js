@@ -5,6 +5,7 @@ document.querySelector('ul').addEventListener('click', handleClickDeleteOrCheck)
 document.getElementById('clear').addEventListener('click', handleClearAll);
 document.getElementById('overDue').addEventListener('click', handleOverDue);
 document.getElementById('showAll').addEventListener('click', handleShowAll);
+document.getElementById('urgent').addEventListener('click', handleUrgent);
 showTodo();
 
 
@@ -72,18 +73,18 @@ function handleOverDue(){
     if (data[key].isComplete == false){
     if(year < yy){
         //console.log(data[key]);
-        showOverDueData(data[key]);
+        showFilterData(data[key]);
 
        
     }
     else if (year == yy && month < mm) {
         //console.log(data[key]);
-        showOverDueData(data[key]);
+        showFilterData(data[key]);
        
     }
-    else if (year == yy && month == mm && day == dd){
+    else if (year == yy && month == mm && day < dd){
         //console.log(data[key]);
-        showOverDueData(data[key]);
+        showFilterData(data[key]);
        
     }
 }
@@ -91,7 +92,7 @@ function handleOverDue(){
 //console.log(object);
 }
 
-function showOverDueData(dataList){
+function showFilterData(dataList){
     let ul = document.querySelector('ul');
     let li = document.createElement('li');
     li.innerHTML = `
@@ -106,19 +107,55 @@ li.classList.add('todo-list-item');
 ul.appendChild(li);
 }
 
-function overDueDisplayHandle(){
-    let todoItems=overDueDisplay();
-   // console.log(todoItems);
+function handleUrgent(){
     
-    for (let key in todoItems) {
-        //console.log(todoItems[key]);
-     
- }
+    resetTodo();
+    
+    let todayDateTemp = curday('-');
+    let todayDate=todayDateTemp.split("-");
+    let object ={};
+    //console.log(todayDate);
 
+    let data = getTodoItems();
+    //console.log(data);
+    for (let key in data){
+        //console.log(data[key]);
+        //console.log(data[key].dueDate[0]);
+        let year=parseInt(data[key].dueDate[0]);
+        let month=parseInt(data[key].dueDate[1]);
+        let day=parseInt(data[key].dueDate[2]);
 
-    //console.log(getTodoItems());
- 
+        let yy=parseInt(todayDate[0]);
+        let mm=parseInt(todayDate[1]);
+        let dd=parseInt(todayDate[2]);
+        let tempObject=object;
+        //console.log(data.isComplete);
+    if (data[key].isComplete == false){
+  if (year == yy && month == mm && day < dd+7){
+        //console.log(data[key]);
+        showFilterData(data[key]);
+       
+    }
 }
+}
+//console.log(object);
+}
+
+
+
+// function overDueDisplayHandle(){
+//     let todoItems=overDueDisplay();
+//    // console.log(todoItems);
+    
+//     for (let key in todoItems) {
+//         //console.log(todoItems[key]);
+     
+//  }
+
+
+//     //console.log(getTodoItems());
+ 
+// }
 
 function showTodo(){
     let todoItems=getTodoItems();
@@ -136,6 +173,7 @@ function showTodo(){
      }    
          let ul = document.querySelector('ul');
          let li = document.createElement('li');
+        
          li.innerHTML = `
      <div class="input-group mb-3">
      <div name = "dueDate" id="${todoItems[key].todoItem}"  class="w-100 p-2" style="background-color: #eee;"><b>Date:</b> ${todoItems[key].dueDate[0]} - ${todoItems[key].dueDate[1]} - ${todoItems[key].dueDate[2]}</div>
