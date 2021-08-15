@@ -1,4 +1,4 @@
-import { addTodoItem, getTodoItems, removeTodoItem ,removeAllItems , doneTodoItem, unDoneTodoItem} from './modules/todo.js';
+import { addTodoItem, getTodoItems, removeTodoItem ,removeAllItems , doneTodoItem, unDoneTodoItem, sortDateAsc} from './modules/todo.js';
 import {curday} from './modules/date.js';
 import {titleLoader , titleReset} from './modules/title.js';
 
@@ -8,6 +8,7 @@ document.getElementById('clear').addEventListener('click', handleClearAll);
 document.getElementById('overDue').addEventListener('click', handleOverDue);
 document.getElementById('showAll').addEventListener('click', handleShowAll);
 document.getElementById('urgent').addEventListener('click', handleUrgent);
+document.getElementById('sortDate').addEventListener('click', handlesortDate);
 showTodo();
 oneDayNotification();
 
@@ -50,6 +51,12 @@ function handleSubmitForm(event){
     addTodoItem(datePick,todoText);
     resetTodo();
         showTodo();
+}
+function handlesortDate(){
+    let sortedArray = sortDateAsc();
+    resetTodo();
+    showTodoDateSort(sortedArray);
+
 }
 
 function handleOverDue(){
@@ -145,6 +152,7 @@ function handleUrgent(){
 //console.log(object);
 }
 
+
 function oneDayNotification(){
     
     
@@ -223,6 +231,44 @@ function showTodo(){
      <button name="checkButton" id="${todoItems[key].todoItem}" class="btn btn-outline-secondary" type="done" >Done</button>
      <button name="unDoneButton" id="${todoItems[key].todoItem}" class="btn btn-outline-secondary" type="unDone" >Undone</button>
      <button name="deleteButton" id="${todoItems[key].todoItem}" class="btn btn-outline-secondary" type="delete" >Delete</button>
+     </div>`;
+     li.classList.add('todo-list-item');
+     ul.appendChild(li);   
+     }
+ }
+
+
+    //console.log(getTodoItems());
+ 
+}
+function showTodoDateSort(){
+    titleLoader("Sorted by date");
+    
+    let todoItems=sortDateAsc();
+    //console.log(todoItems[0]);
+    for (let key in todoItems) {
+        //console.log(todoItems[key][1]);
+     if (todoItems.hasOwnProperty(key)) {
+         let todoTask=todoItems[key][1].todoItem;
+         //console.log(todoTask);
+     if (todoItems[key][1].isComplete == true){
+        let test = todoItems[key][1].todoItem;
+        todoTask = "<strike>" + test + "</strike>";
+        //console.log(todoTask);
+     }
+     else{
+         todoTask=todoItems[key][1].todoItem;
+     }    
+         let ul = document.querySelector('ul');
+         let li = document.createElement('li');
+        
+         li.innerHTML = `
+     <div class="input-group mb-3">
+     <div name = "dueDate" id="${todoItems[key][1].todoItem}"  class="w-100 p-2" style="background-color: #eee;"><b>Date:</b> ${todoItems[key][1].dueDate[0]} - ${todoItems[key][1].dueDate[1]} - ${todoItems[key][1].dueDate[2]}</div>
+     <div name = "todoItem" id="${todoItems[key][1].todoItem}" class="form-control" value ="${todoItems[key][1].todoItem}"><b>Task:</b> ${todoTask}</div>
+     <button name="checkButton" id="${todoItems[key][1].todoItem}" class="btn btn-outline-secondary" type="done" >Done</button>
+     <button name="unDoneButton" id="${todoItems[key][1].todoItem}" class="btn btn-outline-secondary" type="unDone" >Undone</button>
+     <button name="deleteButton" id="${todoItems[key][1].todoItem}" class="btn btn-outline-secondary" type="delete" >Delete</button>
      </div>`;
      li.classList.add('todo-list-item');
      ul.appendChild(li);   

@@ -51,6 +51,31 @@ export const removeAllItems = () => {
     removeAll();
 }   
 
+export const sortDateAsc = () => {
+    let todoItems = getItems();
+    // for (let key in todoItems){
+    //     console.log(todoItems[key]);
+        
+    // }
+    let sortable = [];
+for (let key in todoItems) {
+    sortable.push([key, todoItems[key]]);
+}
+//console.log(sortable);
+sortable.sort(function(a, b) {
+    //console.log(new Date(b[1].dueDate));
+
+    //console.log(a[1].dueDate);
+    return new Date(a[1].dueDate) - new Date(b[1].dueDate);
+});
+
+//console.log(sortable);
+//console.log(todoItems);
+return sortable;
+}
+
+
+
 // export const overDueDisplay = () => {
 //     let todayDateTemp = curday('-');
 //     let todayDate=todayDateTemp.split("-");

@@ -52,7 +52,7 @@ export const doneItemById = (name) => {
     let todoItemsByNameIndex = todoItems.findIndex((item) => {
         return item.todoItem.toLowerCase() == name.toLowerCase();
     })
-    console.log('Item index', todoItemsByNameIndex);
+    //console.log('Item index', todoItemsByNameIndex);
     if(todoItemsByNameIndex > -1) {
      todoItems[todoItemsByNameIndex].isComplete=true;
     }
@@ -71,7 +71,7 @@ export const unDoneItemById = (name) => {
     let todoItemsByNameIndex = todoItems.findIndex((item) => {
         return item.todoItem.toLowerCase() == name.toLowerCase();
     })
-    console.log('Item index', todoItemsByNameIndex);
+    //console.log('Item index', todoItemsByNameIndex);
     if(todoItemsByNameIndex > -1) {
      todoItems[todoItemsByNameIndex].isComplete=false;
     }
