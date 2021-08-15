@@ -1,12 +1,17 @@
 import { addTodoItem, getTodoItems, removeTodoItem ,removeAllItems , doneTodoItem, unDoneTodoItem} from './modules/todo.js'
-
+import {curday} from './modules/date.js'
 document.querySelector('form').addEventListener('submit', handleSubmitForm);
 document.querySelector('ul').addEventListener('click', handleClickDeleteOrCheck);
 document.getElementById('clear').addEventListener('click', handleClearAll);
+document.getElementById('overDue').addEventListener('click', handleOverDue);
+document.getElementById('showAll').addEventListener('click', handleShowAll);
 showTodo();
 
 
-
+function handleShowAll(){
+    resetTodo();
+    showTodo();
+}
 // document.getElementByname('deleteButton').addEventListener('click', (event) => {
 //     event.preventDefault();
 //     console.log('todoItems', document.getElementsByName('todoItem')[0].value);
@@ -41,8 +46,80 @@ function handleSubmitForm(event){
     addTodoItem(datePick,todoText);
     resetTodo();
         showTodo();
-    
 }
+
+function handleOverDue(){
+    resetTodo();
+    let todayDateTemp = curday('-');
+    let todayDate=todayDateTemp.split("-");
+    let object ={};
+    //console.log(todayDate);
+
+    let data = getTodoItems();
+    //console.log(data);
+    for (let key in data){
+        //console.log(data[key]);
+        //console.log(data[key].dueDate[0]);
+        let year=parseInt(data[key].dueDate[0]);
+        let month=parseInt(data[key].dueDate[1]);
+        let day=parseInt(data[key].dueDate[2]);
+
+        let yy=parseInt(todayDate[0]);
+        let mm=parseInt(todayDate[1]);
+        let dd=parseInt(todayDate[2]);
+        let tempObject=object;
+        //console.log(data.isComplete);
+    if (data[key].isComplete == false){
+    if(year < yy){
+        //console.log(data[key]);
+        showOverDueData(data[key]);
+
+       
+    }
+    else if (year == yy && month < mm) {
+        //console.log(data[key]);
+        showOverDueData(data[key]);
+       
+    }
+    else if (year == yy && month == mm && day == dd){
+        //console.log(data[key]);
+        showOverDueData(data[key]);
+       
+    }
+}
+}
+//console.log(object);
+}
+
+function showOverDueData(dataList){
+    let ul = document.querySelector('ul');
+    let li = document.createElement('li');
+    li.innerHTML = `
+<div class="input-group mb-3">
+<div name = "dueDate" id="${dataList.todoItem}"  class="w-100 p-2" style="background-color: #eee;"><b>Date:</b> ${dataList.dueDate[0]} - ${dataList.dueDate[1]} - ${dataList.dueDate[2]}</div>
+<div name = "todoItem" id="${dataList.todoItem}" class="form-control" value ="${dataList.todoItem}"><b>Task:</b> ${dataList.todoItem}</div>
+<button name="checkButton" id="${dataList.todoItem}" class="btn btn-outline-secondary" type="done" >Done</button>
+<button name="unDoneButton" id="${dataList.todoItem}" class="btn btn-outline-secondary" type="unDone" >Undone</button>
+<button name="deleteButton" id="${dataList.todoItem}" class="btn btn-outline-secondary" type="delete" >Delete</button>
+</div>`;
+li.classList.add('todo-list-item');
+ul.appendChild(li);
+}
+
+function overDueDisplayHandle(){
+    let todoItems=overDueDisplay();
+   // console.log(todoItems);
+    
+    for (let key in todoItems) {
+        //console.log(todoItems[key]);
+     
+ }
+
+
+    //console.log(getTodoItems());
+ 
+}
+
 function showTodo(){
     let todoItems=getTodoItems();
     //console.log(todoItems);
@@ -61,7 +138,7 @@ function showTodo(){
          let li = document.createElement('li');
          li.innerHTML = `
      <div class="input-group mb-3">
-     <div name = "dueDate" id="${todoItems[key].todoItem}"  class="w-100 p-2" style="background-color: #eee;"><b>Date:</b> ${todoItems[key].dueDate}</div>
+     <div name = "dueDate" id="${todoItems[key].todoItem}"  class="w-100 p-2" style="background-color: #eee;"><b>Date:</b> ${todoItems[key].dueDate[0]} - ${todoItems[key].dueDate[1]} - ${todoItems[key].dueDate[2]}</div>
      <div name = "todoItem" id="${todoItems[key].todoItem}" class="form-control" value ="${todoItems[key].todoItem}"><b>Task:</b> ${todoTask}</div>
      <button name="checkButton" id="${todoItems[key].todoItem}" class="btn btn-outline-secondary" type="done" >Done</button>
      <button name="unDoneButton" id="${todoItems[key].todoItem}" class="btn btn-outline-secondary" type="unDone" >Undone</button>
