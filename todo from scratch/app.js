@@ -1,5 +1,7 @@
-import { addTodoItem, getTodoItems, removeTodoItem ,removeAllItems , doneTodoItem, unDoneTodoItem} from './modules/todo.js'
-import {curday} from './modules/date.js'
+import { addTodoItem, getTodoItems, removeTodoItem ,removeAllItems , doneTodoItem, unDoneTodoItem} from './modules/todo.js';
+import {curday} from './modules/date.js';
+import {titleLoader , titleReset} from './modules/title.js';
+
 document.querySelector('form').addEventListener('submit', handleSubmitForm);
 document.querySelector('ul').addEventListener('click', handleClickDeleteOrCheck);
 document.getElementById('clear').addEventListener('click', handleClearAll);
@@ -7,6 +9,7 @@ document.getElementById('overDue').addEventListener('click', handleOverDue);
 document.getElementById('showAll').addEventListener('click', handleShowAll);
 document.getElementById('urgent').addEventListener('click', handleUrgent);
 showTodo();
+oneDayNotification();
 
 
 function handleShowAll(){
@@ -51,6 +54,7 @@ function handleSubmitForm(event){
 
 function handleOverDue(){
     resetTodo();
+    titleLoader("Overdue Tasks");
     let todayDateTemp = curday('-');
     let todayDate=todayDateTemp.split("-");
     let object ={};
@@ -110,7 +114,7 @@ ul.appendChild(li);
 function handleUrgent(){
     
     resetTodo();
-    
+    titleLoader("Urgent Tasks (7 days to complete)");
     let todayDateTemp = curday('-');
     let todayDate=todayDateTemp.split("-");
     let object ={};
@@ -141,6 +145,42 @@ function handleUrgent(){
 //console.log(object);
 }
 
+function oneDayNotification(){
+    
+    
+    let todayDateTemp = curday('-');
+    let todayDate=todayDateTemp.split("-");
+    let object ={};
+    //console.log(todayDate);
+
+    let data = getTodoItems();
+    //console.log(data);
+    for (let key in data){
+        //console.log(data[key]);
+        //console.log(data[key].dueDate[0]);
+        let year=parseInt(data[key].dueDate[0]);
+        let month=parseInt(data[key].dueDate[1]);
+        let day=parseInt(data[key].dueDate[2]);
+
+        let yy=parseInt(todayDate[0]);
+        let mm=parseInt(todayDate[1]);
+        let dd=parseInt(todayDate[2]);
+        let tempObject=object;
+        //console.log(data.isComplete);
+    if (data[key].isComplete == false){
+        
+  if (year == yy && month == mm && day == dd+1){
+        //console.log(data[key]);
+        
+        window.alert('You have 1 day to complete the task '+ data[key].todoItem);
+       
+    }
+}
+}
+//console.log(object);
+}
+
+
 
 
 // function overDueDisplayHandle(){
@@ -158,6 +198,8 @@ function handleUrgent(){
 // }
 
 function showTodo(){
+    titleLoader("All Tasks");
+    
     let todoItems=getTodoItems();
     //console.log(todoItems);
     for (let key in todoItems) {
