@@ -1,12 +1,16 @@
+import { addTodoItem, getTodoItems, removeTodoItem } from './modules/todo.js'
+
 document.querySelector('form').addEventListener('submit', handleSubmitForm);
 document.querySelector('ul').addEventListener('click', handleClickDeleteOrCheck);
 document.getElementById('clear').addEventListener('click', handleClearAll);
+
+
 
 //let count=0;
 
 //adding todo
 function handleSubmitForm(event){
-    event.preventDefault();
+    event.preventDefault();s
     let datePick = document.querySelector('#datePick').value;
     let todoText = document.querySelector('#todoText').value;
 
@@ -17,7 +21,24 @@ function handleSubmitForm(event){
    
 
     if (datePick != '' && todoText != '' )
-        addTodo(datePick, todoText);
+    addTodoItem(datePick,todoText);
+showtodo()
+        //addTodo(datePick, todoText);
+    
+}
+function showtodo(){
+   // getTodoItems();
+    console.log(getTodoItems());
+    // li.innerHTML = `
+    // <div class="w-100 p-2" style="background-color: #eee;"><b>Date:</b> ${datePick}</div>
+    // <div class="input-group mb-3">
+    // <div class="form-control"><b>Task:</b> ${todoText}</div>
+    // <div class="input-group-append">
+    // <button name="checkButton" class="btn btn-outline-secondary" type="done" >Done</button>
+    // <button name="deleteButton" class="btn btn-outline-secondary" type="delete" >Delete</button>
+    // </div></div>`;
+    // li.classList.add('todo-list-item');
+    // ul.appendChild(li);
     
 }
 
@@ -41,21 +62,21 @@ function handleSubmitForm(event){
     
 // }
 
-function addTodo(datePick , todoText){
-    let ul = document.querySelector('ul');
-    let li = document.createElement('li');
-    li.innerHTML = `
-    <div class="w-100 p-2" style="background-color: #eee;"><b>Date:</b> ${datePick}</div>
-    <div class="input-group mb-3">
-    <div class="form-control"><b>Task:</b> ${todoText}</div>
-    <div class="input-group-append">
-    <button name="checkButton" class="btn btn-outline-secondary" type="done" >Done</button>
-    <button name="deleteButton" class="btn btn-outline-secondary" type="delete" >Delete</button>
-    </div></div>`;
-    li.classList.add('todo-list-item');
-    ul.appendChild(li);
+// function addTodo(datePick , todoText){
+//     let ul = document.querySelector('ul');
+//     let li = document.createElement('li');
+//     li.innerHTML = `
+//     <div class="w-100 p-2" style="background-color: #eee;"><b>Date:</b> ${datePick}</div>
+//     <div class="input-group mb-3">
+//     <div class="form-control"><b>Task:</b> ${todoText}</div>
+//     <div class="input-group-append">
+//     <button name="checkButton" class="btn btn-outline-secondary" type="done" >Done</button>
+//     <button name="deleteButton" class="btn btn-outline-secondary" type="delete" >Delete</button>
+//     </div></div>`;
+//     li.classList.add('todo-list-item');
+//     ul.appendChild(li);
     
-}
+// }
 
 
 //dont tasks
