@@ -108,11 +108,11 @@ function showFilterData(dataList){
     let li = document.createElement('li');
     li.innerHTML = `
 <div class="input-group mb-3">
-<div name = "dueDate" id="${dataList.todoItem}"  class="w-100 p-2" style="background-color: #eee;"><b>Date:</b> ${dataList.dueDate[0]} - ${dataList.dueDate[1]} - ${dataList.dueDate[2]}</div>
-<div name = "todoItem" id="${dataList.todoItem}" class="form-control" value ="${dataList.todoItem}"><b>Task:</b> ${dataList.todoItem}</div>
-<button name="checkButton" id="${dataList.todoItem}" class="btn btn-outline-secondary" type="done" >Done</button>
-<button name="unDoneButton" id="${dataList.todoItem}" class="btn btn-outline-secondary" type="unDone" >Undone</button>
-<button name="deleteButton" id="${dataList.todoItem}" class="btn btn-outline-secondary" type="delete" >Delete</button>
+<div name = "dueDate" data-id="${dataList.todoItem}"  class="w-100 p-2" style="background-color: #eee;"><b>Date:</b> ${dataList.dueDate[0]} - ${dataList.dueDate[1]} - ${dataList.dueDate[2]}</div>
+<div name = "todoItem" data-id="${dataList.todoItem}" class="form-control" value ="${dataList.todoItem}"><b>Task:</b> ${dataList.todoItem}</div>
+<button name="checkButton" data-id="${dataList.todoItem}" class="btn btn-outline-secondary" type="done" >Done</button>
+<button name="unDoneButton" data-id="${dataList.todoItem}" class="btn btn-outline-secondary" type="unDone" >Undone</button>
+<button name="deleteButton" data-id="${dataList.todoItem}" class="btn btn-outline-secondary" type="delete" >Delete</button>
 </div>`;
 li.classList.add('todo-list-item');
 ul.appendChild(li);
@@ -226,11 +226,11 @@ function showTodo(){
         
          li.innerHTML = `
      <div class="input-group mb-3">
-     <div name = "dueDate" id="${todoItems[key].todoItem}"  class="w-100 p-2" style="background-color: #eee;"><b>Date:</b> ${todoItems[key].dueDate[0]} - ${todoItems[key].dueDate[1]} - ${todoItems[key].dueDate[2]}</div>
-     <div name = "todoItem" id="${todoItems[key].todoItem}" class="form-control" value ="${todoItems[key].todoItem}"><b>Task:</b> ${todoTask}</div>
-     <button name="checkButton" id="${todoItems[key].todoItem}" class="btn btn-outline-secondary" type="done" >Done</button>
-     <button name="unDoneButton" id="${todoItems[key].todoItem}" class="btn btn-outline-secondary" type="unDone" >Undone</button>
-     <button name="deleteButton" id="${todoItems[key].todoItem}" class="btn btn-outline-secondary" type="delete" >Delete</button>
+     <div name = "dueDate" data-id="${todoItems[key].todoItem}"  class="w-100 p-2" style="background-color: #eee;"><b>Date:</b> ${todoItems[key].dueDate[0]} - ${todoItems[key].dueDate[1]} - ${todoItems[key].dueDate[2]}</div>
+     <div name = "todoItem" data-id="${todoItems[key].todoItem}" class="form-control" value ="${todoItems[key].todoItem}"><b>Task:</b> ${todoTask}</div>
+     <button name="checkButton" data-id="${todoItems[key].todoItem}" class="btn btn-outline-secondary" type="done" >Done</button>
+     <button name="unDoneButton" data-id="${todoItems[key].todoItem}" class="btn btn-outline-secondary" type="unDone" >Undone</button>
+     <button name="deleteButton" data-id="${todoItems[key].todoItem}" class="btn btn-outline-secondary" type="delete" >Delete</button>
      </div>`;
      li.classList.add('todo-list-item');
      ul.appendChild(li);   
@@ -264,14 +264,16 @@ function showTodoDateSort(){
         
          li.innerHTML = `
      <div class="input-group mb-3">
-     <div name = "dueDate" id="${todoItems[key][1].todoItem}"  class="w-100 p-2" style="background-color: #eee;"><b>Date:</b> ${todoItems[key][1].dueDate[0]} - ${todoItems[key][1].dueDate[1]} - ${todoItems[key][1].dueDate[2]}</div>
-     <div name = "todoItem" id="${todoItems[key][1].todoItem}" class="form-control" value ="${todoItems[key][1].todoItem}"><b>Task:</b> ${todoTask}</div>
-     <button name="checkButton" id="${todoItems[key][1].todoItem}" class="btn btn-outline-secondary" type="done" >Done</button>
-     <button name="unDoneButton" id="${todoItems[key][1].todoItem}" class="btn btn-outline-secondary" type="unDone" >Undone</button>
-     <button name="deleteButton" id="${todoItems[key][1].todoItem}" class="btn btn-outline-secondary" type="delete" >Delete</button>
+     <div name = "dueDate" data-id="${todoItems[key][1].todoItem}"  class="w-100 p-2" style="background-color: #eee;"><b>Date:</b> ${todoItems[key][1].dueDate[0]} - ${todoItems[key][1].dueDate[1]} - ${todoItems[key][1].dueDate[2]}</div>
+     <div name = "todoItem" data-id="${todoItems[key][1].todoItem}" class="form-control" value ="${todoItems[key][1].todoItem}"><b>Task:</b> ${todoTask}</div>
+     <button name="checkButton" data-id="${todoItems[key][1].todoItem}" class="btn btn-outline-secondary" type="done" >Done</button>
+     <button name="unDoneButton" data-id="${todoItems[key][1].todoItem}" class="btn btn-outline-secondary" type="unDone" >Undone</button>
+     <button name="deleteButton" data-id="${todoItems[key][1].todoItem}" class="btn btn-outline-secondary" type="delete" >Delete</button>
      </div>`;
      li.classList.add('todo-list-item');
-     ul.appendChild(li);   
+     ul.appendChild(li);  
+     
+     
      }
  }
 
@@ -333,15 +335,16 @@ function handleClickDeleteOrCheck(event){
 
     if (event.target.name == 'checkButton'){
     //console.log('Check Clicked', event);
-    //console.log(event.target.id);
-    doneTodoItem(event.target.id);
+    //console.log(event.target.getAttribute('data-id'));
+    //console.log(event.target.data-id);
+    doneTodoItem(event.target.getAttribute('data-id'));
     resetTodo();
     showTodo();
     }
     if (event.target.name == 'unDoneButton'){
         //console.log('Check Clicked', event);
         //console.log(event.target.id);
-        unDoneTodoItem(event.target.id);
+        unDoneTodoItem(event.target.getAttribute('data-id'));
         resetTodo();
         showTodo();
         }
@@ -352,7 +355,7 @@ function handleClickDeleteOrCheck(event){
         //console.log(event.target.parentNode.parentNode);
         //console.log(event.target.id);
         //event.target.parentNode.parentNode.removeChild(event.target.parentNode);
-        removeTodoItem(event.target.id);
+        removeTodoItem(event.target.getAttribute('data-id'));
         resetTodo();
         showTodo();
     }
