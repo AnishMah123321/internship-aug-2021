@@ -1,7 +1,7 @@
 import {fetchMovie} from './modules/fetch.js';
 
 export const showMovie = async() => {
-    //asd();
+    //await asd();
     let info = await fetchMovie()
     let count = 1;
     let rowId='rowId1';
@@ -123,12 +123,15 @@ export const showMovie = async() => {
         
 
     }
-    const asd = async() => {
-        console.log('printed');
-    }
 
+
+  
   
 
 
 }
+  const asd = async() => {
+        //console.log('printed');
+    }
+
 showMovie();
