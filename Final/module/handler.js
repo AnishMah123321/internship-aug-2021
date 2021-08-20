@@ -17,7 +17,12 @@ export const handleSubmitForm = async(event) =>{
     let lastName = document.querySelector('#lastName').value;
     let email = document.querySelector('#email').value;
     let id = Math.random();
+    if (firstName !='' && lastName !='' && email != ''){
     await addData(id,email,firstName,lastName);
+    }
+    else{
+        window.alert('empty field')
+    }
     
 }
 document.querySelector('.formOne button').addEventListener('click', handleSubmitForm);

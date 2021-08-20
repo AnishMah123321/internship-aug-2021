@@ -17,17 +17,18 @@ export const allData = async(data0) => {
         //console.log(data1);
         //console.log(data1, data2);
         data = [].concat(tempdata,data1, data2);
+        tempdata = data;
        //console.log(data);
         return data;
     }
     else{
         //console.log(data0[0].id);
-        let data1 = await fetchData1();
-        let data2 = await fetchData2();
+        //let data1 = await fetchData1();
+        //let data2 = await fetchData2();
         // //console.log(data1);
         // //console.log(data1, data2);
         tempdata = [].concat(data0,tempdata)
-        data = [].concat(tempdata,data1, data2);
+        data = tempdata;
        
         //console.log(data);
         // return data;
@@ -55,9 +56,10 @@ export const allData = async(data0) => {
      //let dataSend='.deleteData'+data[key].id;
      document.querySelector('.editData'+CSS.escape(data0[0].id)).addEventListener('click' , editData);
      document.querySelector('.deleteData'+CSS.escape(data0[0].id)).addEventListener('click' , deleteData);
-     await removeBody();
-     await showFilterData();
+     
         }
+        await removeBody();
+     await showFilterData();
     }
     
 }
@@ -273,7 +275,8 @@ const updateData = async (event) =>{
     //console.log(event.target.name);
     //await deleteFromApi(event.target.name);
     //console.log(data[key].first_name);
-   
+   if(document.querySelector('#firstName2').value!='' && document.querySelector('#lastName2').value != '' && document.querySelector('#email2').value !='' )
+   {
     for (let key in data){
         if (data[key].id == id ){
             data[key].first_name= document.querySelector('#firstName2').value;
@@ -283,6 +286,10 @@ const updateData = async (event) =>{
         }
         
     }
+}
+else {
+    window.alert('empty field');
+}
 
      await removeFloat();
      await removeBody();
