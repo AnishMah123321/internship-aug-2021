@@ -1,10 +1,12 @@
-import {fetchData1 , fetchData2,deleteFromApi} from './fetch.js';
+import {fetchData1 , fetchData2,deleteFromApi,addDataInFetch} from './fetch.js';
 
 let tempdata =[];
 let data=[];
 let pageNo=1;
 let pageCount=4;
 let idSort=0;
+let fnameSort=0;
+let lnameSort=0;
 
 //let editNodeData;
 export const allData = async(data0) => {
@@ -330,6 +332,7 @@ export const addData = async (id,email,firstName,lastName) => {
         }
     ]
     await allData(formInput);
+    await addDataInFetch(formInput);
 }
 
 export const removeBody= async() =>{
@@ -409,6 +412,85 @@ function compareIddsc( b, a ) {
     }
     return 0;
   }
+
+
+  const fnameManage = async() =>{
+    // console.log(idSort);
+ if (fnameSort == 0){
+     
+ data.sort(comparefnameasc);
+ removeBody();
+ showFilterData();
+ fnameSort=1;
+ }
+ else{
+ data.sort(comparefnamedsc);
+ removeBody();
+ showFilterData();
+ fnameSort=0;
+ }
+ }
+ document.querySelector('.fnameth').addEventListener('click', fnameManage);
+ 
+ function comparefnameasc( a, b ) {
+     if ( a.first_name < b.first_name ){
+       return -1;
+     }
+     if ( a.first_name > b.first_name ){
+       return 1;
+     }
+     return 0;
+   }
+ 
+   
+ function comparefnamedsc( b, a ) {
+     if ( a.first_name < b.first_name ){
+       return -1;
+     }
+     if ( a.first_name > b.first_name ){
+       return 1;
+     }
+     return 0;
+   }
+
+   const lnameManage = async() =>{
+    // console.log(idSort);
+ if (lnameSort == 0){
+     
+ data.sort(comparelnameasc);
+ removeBody();
+ showFilterData();
+ lnameSort=1;
+ }
+ else{
+ data.sort(comparelnamedsc);
+ removeBody();
+ showFilterData();
+ lnameSort=0;
+ }
+ }
+ document.querySelector('.lnameth').addEventListener('click', lnameManage);
+ 
+ function comparelnameasc( a, b ) {
+     if ( a.last_name < b.last_name ){
+       return -1;
+     }
+     if ( a.last_name > b.last_name ){
+       return 1;
+     }
+     return 0;
+   }
+ 
+   
+ function comparelnamedsc( b, a ) {
+     if ( a.last_name < b.last_name ){
+       return -1;
+     }
+     if ( a.last_name > b.last_name ){
+       return 1;
+     }
+     return 0;
+   }
 
 
 

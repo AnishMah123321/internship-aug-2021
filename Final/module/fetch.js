@@ -37,3 +37,15 @@ export const fetchData1 = async() => {
     })
     .catch(err => console.log('error'));
   }
+
+  export const addDataInFetch = async (opts) => {
+    
+    fetch('https://reqres.in/api/users?page=1', {
+      method: 'post',
+      body: JSON.stringify(opts)
+    }).then(function(response) {
+      return response.json();
+    }).then(function(data) {
+      console.log('Data Added:', opts);
+    });
+  }
